@@ -1,14 +1,43 @@
 version: "3.9"
 services:
-  postgres:
-    image: postgres:latest
+  library:
+    image: postgres:14.5
+    restart: always
     environment:
-      POSTGRES_DB: "teacher"
-      POSTGRES_USER: "teacher"
-      POSTGRES_PASSWORD: "teacher"
+      POSTGRES_DB: "ULYANENKOV_204"
+      POSTGRES_USER: "ULYANENKOV_204"
+      POSTGRES_PASSWORD: "ULYANENKOV_204"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-      - docker/db/scripts:/docker-entrypoint-initdb.d
-      - dz:/var/lib/postgresql/data
+      - ./docker/db/data/library/:/var/lib/postgresql/data/
+      - ./docker/db/scripts/library:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
+
+  hospital:
+    image: postgres:14.5
+    restart: always
+    environment:
+      POSTGRES_DB: "ULYANENKOV_204"
+      POSTGRES_USER: "ULYANENKOV_204"
+      POSTGRES_PASSWORD: "ULYANENKOV_204"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./docker/db/data/hospital/:/var/lib/postgresql/data/
+      - ./docker/db/scripts/hospital:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
+
+  trains:
+    image: postgres:14.5
+    restart: always
+    environment:
+      POSTGRES_DB: "ULYANENKOV_204"
+      POSTGRES_USER: "ULYANENKOV_204"
+      POSTGRES_PASSWORD: "ULYANENKOV_204"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./docker/db/data/trains/:/var/lib/postgresql/data/
+      - ./docker/db/scripts/trains:/docker-entrypoint-initdb.d
+    ports:
+      - "5434:5432"
